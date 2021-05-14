@@ -78,7 +78,9 @@ def weather(request):
     for content in dict["entries"]:
          rss.append(
 
-             (content["title"],
-             content["link"])
+                 (
+                    {"title":content["title"],
+                    "link":content["link"]}
+                 )
          )
     return render(request,'blog/weather.html',{'rss': rss})

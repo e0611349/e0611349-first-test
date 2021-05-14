@@ -6,6 +6,10 @@ from django.shortcuts import render, get_object_or_404
 from .forms import PostForm, CommentForm
 from django.shortcuts import redirect
 
+
+def top(request):
+    return render(request, 'blog/top.html', {})
+
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
@@ -65,3 +69,16 @@ def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('post_detail', pk=comment.post.pk)
+
+def weather(request):
+    import feedparser
+    RSS_URL = "https://rss-weather.yahoo.co.jp/rss/days/3610.xml"
+    dict = feedparser.parse(RSS_URL)
+    rss = []
+    for content in dict["entries"]:
+         rss.append(
+
+             (content["title"],
+             content["link"])
+         )
+    return render(request,'blog/weather.html',{'rss': rss})

@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% for rss in rss %}
+
+<div class="weather_list">
+    <h2>{{ rss.0 }}</h2>
+    <h2><a href="{{ rss.1 }}">{{ rss.1 }}</a>></h2>
+
+
+</div>
+{% endfor %}
+{% endblock %}
